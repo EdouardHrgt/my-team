@@ -61,7 +61,7 @@ img {
 }
 
 .global-web-page {
-  background: var(--clr-deep-jungle-green);
+  /* background: var(--clr-deep-jungle-green); */
   min-height: 100vh;
 }
 </style>

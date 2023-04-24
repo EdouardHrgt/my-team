@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="nav-bar">
     <div class="filter" :class="{ 'nav-active': isOpen }" @click="isOpen = !isOpen"></div>
     <header>
       <div class="logo">
@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+.nav-bar {
+  background-color: var(--clr-deep-jungle-green);
+}
+
 .filter {
   background-color: var(--clr-trans-black);
   position: absolute;
@@ -129,7 +133,7 @@ a {
   color: var(--clr-light-coral);
 }
 
-@media screen and (max-width: 1441px) {
+@media screen and (max-width: 1440px) {
   header {
     max-width: unset;
     width: 90%;
