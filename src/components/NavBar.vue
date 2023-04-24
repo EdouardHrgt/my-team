@@ -108,7 +108,7 @@ nav ul li {
 
 button {
   background-color: transparent;
-  border: 1px solid var(--clr-white);
+  border: 2px solid var(--clr-white);
   border-radius: 50px;
   padding: 0.657rem 1.988rem;
   cursor: pointer;

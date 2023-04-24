@@ -90,10 +90,7 @@ export default {
 <style scoped>
 .footer-width {
   background-color: var(--clr-sacramento-state-green);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   padding: 2.5rem 0;
 }
 
