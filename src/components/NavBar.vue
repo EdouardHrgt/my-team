@@ -61,7 +61,7 @@ export default {
 
 <style scoped>
 .nav-bar {
-  background-color: var(--clr-deep-jungle-green);
+  background-color: var(--clr-midnight-green);
 }
 
 .filter {
@@ -160,7 +160,7 @@ a {
     top: 0;
     right: -1.5rem;
     z-index: 99;
-    background-color: var(--clr-deep-jungle-green);
+    background-color: var(--clr-midnight-green);
     text-align: center;
     padding-top: 9rem;
     display: none;

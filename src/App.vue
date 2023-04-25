@@ -39,6 +39,7 @@
   /* VARIOUS SIZES */
   --navBar-width: 69.375rem;
   --max-width: 90rem;
+  --home-padding: 7rem;
 }
 
 * {
@@ -59,5 +60,4 @@ img {
   max-width: 100%;
   display: block;
 }
-
 </style>
