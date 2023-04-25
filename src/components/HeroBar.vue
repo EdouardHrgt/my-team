@@ -61,10 +61,21 @@ button a {
   font-size: var(--body-1-size);
   transition: color 0.2s ease-in-out;
 }
+
+@media screen and (max-width: 1250px) {
+  .hero-content {
+    max-width: 720px;
+    padding: 0;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .hero-content {
-    max-width: 100%;
-    padding: 0 3rem;
+    max-width: 700px;
+  }
+  h2 {
+    color: var(--clr-dark-green);
+    font-size: 2rem;
   }
 }
 
@@ -80,9 +91,6 @@ button a {
 @media screen and (max-width: 668px) {
   .hero-content {
     padding: 0 1.5rem;
-  }
-  h2 {
-    font-size: 2rem;
   }
 }
 </style>
