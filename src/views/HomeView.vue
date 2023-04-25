@@ -169,10 +169,6 @@ h1 strong {
   top: -4px;
 }
 
-.build ul {
-  border: 1px solid orange;
-}
-
 .build-list {
   display: flex;
   align-items: center;
@@ -197,9 +193,12 @@ h1 strong {
 }
 
 @media screen and (max-width: 1700px) {
-  .talent {
-    border: none;
+  .talent,
+  .build {
     max-width: 80%;
+  }
+  .build {
+    gap: 1rem;
   }
   h1 {
     font-size: 90px;
@@ -207,11 +206,15 @@ h1 strong {
 }
 
 @media screen and (max-width: 1224px) {
-  .talent {
+  .talent,
+  .build {
     max-width: 90%;
   }
   .talent-wrapper {
     background-image: none;
+  }
+  .build-wrapper {
+    background-size: 170px;
   }
 }
 
@@ -226,6 +229,11 @@ h1 strong {
   h1 {
     text-align: center;
   }
+  .build h2 {
+    font-size: 2rem;
+    line-height: 2.2rem;
+    max-width: 15rem;
+  }
   .talent p {
     max-width: 35rem;
     padding: 1rem 0 0 0;
@@ -233,6 +241,16 @@ h1 strong {
   }
   .talent p::before {
     display: none;
+  }
+  .build-wrapper {
+    background-position-y: top;
+    background-size: initial;
+  }
+  .build {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
   }
 }
 
