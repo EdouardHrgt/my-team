@@ -18,7 +18,7 @@
         <h2>Some of our clients</h2>
         <ul>
           <li v-for="cli in clients" :key="cli.index" class="clients-list">
-            <img :src="cli.logo" :alt="'logo of our client: ' + cli.name" />
+            <img :src="cli.logo" :alt="'logo of our client: ' + cli.name" tabIndex="0" />
           </li>
         </ul>
       </div>
@@ -96,7 +96,7 @@ p {
 
 .about,
 .clients {
-  padding: 4rem 0;
+  padding: 6rem 0;
   max-width: var(--max-width);
   margin: auto;
 }
@@ -106,6 +106,7 @@ p {
   display: flex;
   align-items: flex-start;
   gap: 12rem;
+  padding-bottom: 9rem;
 }
 
 .about-txt {
@@ -148,12 +149,75 @@ p {
   .clients {
     max-width: 90%;
   }
+  .clients ul {
+    gap: 4rem;
+  }
+  .about-txt {
+    max-width: 37rem;
+  }
+}
+
+@media screen and (max-width: 1133px) {
+  .about-txt {
+    max-width: 30rem;
+    margin-bottom: 4rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .clients ul {
+    gap: 2.5rem;
+  }
+  .about {
+    flex-direction: column;
+    align-items: center;
+    gap: 2.2rem;
+  }
+  .about-txt {
+    max-width: 80%;
+    margin-bottom: 5rem;
+    text-align: center;
+  }
+  .about-txt::before {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 668px) {
+  .about-wrapper {
+    background-position-x: calc(100% + 6.1rem);
+    background-position-y: 23rem;
+  }
+  .clients-wrapper {
+    background-position: unset;
+    background-position-x: -6.3rem;
+    background-position-y: -6.3rem;
+  }
   .about,
   .clients {
     max-width: calc(100% - 3rem);
+  }
+
+  .about {
+    padding-top: 0;
+  }
+  .about-txt {
+    max-width: 90%;
+    margin-bottom: 0;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  .clients {
+    padding-top: 1.5rem;
+  }
+  .clients ul {
+    flex-direction: column;
+    margin: auto;
+    max-width: 60%;
   }
 }
 </style>

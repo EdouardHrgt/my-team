@@ -85,6 +85,7 @@ button a {
   }
   button {
     margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 }
 

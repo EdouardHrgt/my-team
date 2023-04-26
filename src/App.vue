@@ -52,6 +52,10 @@
   font-family: var(--font-family);
 }
 
+*:focus {
+  outline: 3px solid yellow;
+}
+
 button {
   display: block;
 }
