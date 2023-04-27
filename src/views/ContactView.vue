@@ -16,16 +16,33 @@
           </div>
           <div class="contact-form">
             <form @submit.prevent="sendForm()" novalidate>
+              <div class="confirmation-modal" v-if="confirmation">
+                <h3>Your message has been send!</h3>
+              </div>
               <!-- Name input -->
               <div class="form-group">
                 <label for="name" hidden>Name:</label>
-                <input type="text" name="name" id="name" placeholder="Name" v-model="name" />
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  v-model="name"
+                  :class="{ inputError: errors.name }"
+                />
                 <p class="error" v-show="errors.name">{{ errors.name }}</p>
               </div>
               <!-- Email input -->
               <div class="form-group">
                 <label for="email" hidden>Email:</label>
-                <input type="email" name="email" id="email" placeholder="Email" v-model="email" />
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  v-model="email"
+                  :class="{ inputError: errors.email }"
+                />
                 <p class="error" v-show="errors.email">{{ errors.email }}</p>
               </div>
               <!-- Company input -->
@@ -37,13 +54,21 @@
                   id="company"
                   placeholder="Company Name"
                   v-model="company"
+                  :class="{ inputError: errors.company }"
                 />
                 <p class="error" v-show="errors.company">{{ errors.company }}</p>
               </div>
               <!-- Title input -->
               <div class="form-group">
                 <label for="title" hidden>Title:</label>
-                <input type="text" name="title" id="title" placeholder="Title" v-model="title" />
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Title"
+                  v-model="title"
+                  :class="{ inputError: errors.title }"
+                />
                 <p class="error" v-show="errors.title">{{ errors.title }}</p>
               </div>
               <!-- message input -->
@@ -55,6 +80,7 @@
                   id="message"
                   placeholder="Message"
                   v-model="message"
+                  :class="{ inputError: errors.message }"
                 />
                 <p class="error" v-show="errors.message">{{ errors.message }}</p>
               </div>
@@ -79,6 +105,7 @@ export default {
   },
   data() {
     return {
+      confirmation: false,
       name: '',
       email: '',
       company: '',
@@ -116,12 +143,15 @@ export default {
   methods: {
     sendForm() {
       this.resetErrors();
+      this.confirmation = false;
       const myForm = [this.name, this.email, this.company, this.title, this.message];
-      if (this.name && this.email && this.company && this.title && this.message) {
-        alert('form sent');
+      if (this.name && this.checkEmail() && this.company && this.title && this.message) {
+        this.resetForm();
+        this.confirmation = true;
       } else {
         myForm.forEach((input, i) => {
           if (!input) {
+            this.confirmation = false;
             if (i == 0) {
               this.errors.name = 'name required';
             }
@@ -149,6 +179,18 @@ export default {
         message: '',
         company: '',
       };
+    },
+    resetForm() {
+      (this.name = ''),
+        (this.email = ''),
+        (this.company = ''),
+        (this.title = ''),
+        (this.message = '');
+    },
+    checkEmail() {
+      const rgx =
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+      return rgx.test(this.email);
     },
   },
 };
@@ -190,6 +232,13 @@ h2 {
   color: var(--clr-light-coral);
 }
 
+h3 {
+  color: var(--clr-white);
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: appear 0.5s 0.5s forwards;
+}
+
 li p {
   color: var(--clr-white);
   font-size: var(--body-1-size);
@@ -207,6 +256,43 @@ li {
 /* THE FORM */
 form {
   width: 540px;
+  position: relative;
+  isolation: isolate;
+}
+.confirmation-modal {
+  background: var(--clr-midnight-green);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  animation: fade 0.5s forwards;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.form-group {
+  position: relative;
 }
 
 input {
@@ -237,7 +323,7 @@ input[type='submit'] {
   border-radius: 50px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
 }
 
 input[type='submit']:hover {
@@ -255,7 +341,11 @@ input::placeholder {
   color: var(--clr-red);
   font-style: italic;
   font-size: var(--body-2-size);
-  margin-top: -5px;
+  position: absolute;
+}
+
+.inputError {
+  border-bottom: 1px solid var(--clr-red);
 }
 
 @media screen and (max-width: 1440px) {
