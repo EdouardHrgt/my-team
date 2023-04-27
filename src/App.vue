@@ -19,6 +19,7 @@
   --clr-light-coral: #f67e7e;
   --clr-red: #ff6f5b;
   --clr-white: #ffffff;
+  --clr-transp-white: hsla(0,100%,100%,0.7);
   --clr-trans-black: hsla(0, 100%, 0%, 0.5);
 
   /* FONTS */
