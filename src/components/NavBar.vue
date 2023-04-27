@@ -33,7 +33,7 @@
             <router-link :to="{ name: this.links.about }" class="hover-links">about</router-link>
           </li>
           <li class="contact-li">
-            <button>
+            <button tabIndex="-1">
               <router-link :to="{ name: this.links.contact }">contact us</router-link>
             </button>
           </li>
