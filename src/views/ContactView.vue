@@ -6,7 +6,7 @@
         <div class="contact">
           <div class="contact-infos">
             <h1>Contact</h1>
-            <h2>Ask us about</h2>
+            <h2 @click="resetErrors">Ask us about</h2>
             <ul>
               <li v-for="el in list" :key="el.index">
                 <img :src="el.icon" :alt="'icon of ' + el.alt" />
@@ -15,22 +15,18 @@
             </ul>
           </div>
           <div class="contact-form">
-            <form @submit.prevent="sendForm($event)" novalidate>
+            <form @submit.prevent="sendForm()" novalidate>
               <!-- Name input -->
               <div class="form-group">
                 <label for="name" hidden>Name:</label>
-                <input type="text" name="name" id="name" placeholder="Name" v-model="myForm.name" />
+                <input type="text" name="name" id="name" placeholder="Name" v-model="name" />
+                <p class="error" v-show="errors.name">{{ errors.name }}</p>
               </div>
               <!-- Email input -->
               <div class="form-group">
                 <label for="email" hidden>Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Emailcompany"
-                  v-model="myForm.email"
-                />
+                <input type="email" name="email" id="email" placeholder="Email" v-model="email" />
+                <p class="error" v-show="errors.email">{{ errors.email }}</p>
               </div>
               <!-- Company input -->
               <div class="form-group">
@@ -39,20 +35,16 @@
                   type="text"
                   name="company"
                   id="company"
-                  placeholder="Company"
-                  v-model="myForm.company"
+                  placeholder="Company Name"
+                  v-model="company"
                 />
+                <p class="error" v-show="errors.company">{{ errors.company }}</p>
               </div>
               <!-- Title input -->
               <div class="form-group">
                 <label for="title" hidden>Title:</label>
-                <input
-                  type="text"
-                  name="title"
-                  id="title"
-                  placeholder="Title"
-                  v-model="myForm.title"
-                />
+                <input type="text" name="title" id="title" placeholder="Title" v-model="title" />
+                <p class="error" v-show="errors.title">{{ errors.title }}</p>
               </div>
               <!-- message input -->
               <div class="form-group">
@@ -62,15 +54,15 @@
                   name="message"
                   id="message"
                   placeholder="Message"
-                  v-model="myForm.message"
+                  v-model="message"
                 />
+                <p class="error" v-show="errors.message">{{ errors.message }}</p>
               </div>
               <!-- Submit form button -->
               <input type="submit" value="submit" class="submit-btn" />
             </form>
           </div>
         </div>
-        <p class="tempo">{{ myForm }}</p>
       </section>
       <FooterBar />
     </div>
@@ -87,12 +79,17 @@ export default {
   },
   data() {
     return {
-      myForm: {
+      name: '',
+      email: '',
+      company: '',
+      title: '',
+      message: '',
+      errors: {
         name: '',
         email: '',
-        company: '',
         title: '',
         message: '',
+        company: '',
       },
       list: [
         {
@@ -117,21 +114,52 @@ export default {
     };
   },
   methods: {
-    sendForm(event) {
-      console.info(event);
+    sendForm() {
+      this.resetErrors();
+      const myForm = [this.name, this.email, this.company, this.title, this.message];
+      if (this.name && this.email && this.company && this.title && this.message) {
+        alert('form sent');
+      } else {
+        myForm.forEach((input, i) => {
+          if (!input) {
+            if (i == 0) {
+              this.errors.name = 'name required';
+            }
+            if (i == 1) {
+              this.errors.email = 'email required';
+            }
+            if (i == 2) {
+              this.errors.company = 'compagny name required';
+            }
+            if (i == 3) {
+              this.errors.title = 'title required';
+            }
+            if (i == 4) {
+              this.errors.message = 'message required';
+            }
+          }
+        });
+      }
+    },
+    resetErrors() {
+      this.errors = {
+        name: '',
+        email: '',
+        title: '',
+        message: '',
+        company: '',
+      };
     },
   },
 };
 </script>
 
 <style scoped>
-.tempo {
-  color: lightgreen;
-}
 .contact-page {
   min-height: 100vh;
   background-color: rgb(253, 228, 71);
 }
+
 .contact-wrapper {
   background-color: var(--clr-midnight-green);
   background-image: url('../assets/bg-pattern-about-2-contact-1.svg'),
@@ -147,6 +175,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 1rem 0 8rem 0;
+  gap: 2rem;
 }
 
 h1 {
@@ -172,6 +201,7 @@ li {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  margin: 1rem 0;
 }
 
 /* THE FORM */
@@ -186,6 +216,14 @@ input {
   padding: 1rem 0 1rem 1rem;
   margin: 0.5rem 0;
   width: 100%;
+  color: var(--clr-white);
+  font-size: var(--body-1-size);
+}
+
+input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--clr-transp-white);
 }
 
 input[type='submit'] {
@@ -211,5 +249,32 @@ input::placeholder {
   font-size: var(--body-2-size);
   line-height: var(--body-2-line);
   font-weight: 500;
+}
+
+.error {
+  color: var(--clr-red);
+  font-style: italic;
+  font-size: var(--body-2-size);
+  margin-top: -5px;
+}
+
+@media screen and (max-width: 1440px) {
+  .contact {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact {
+    flex-direction: column;
+    padding: 0;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .contact-infos h1,
+  .contact-infos h2 {
+    text-align: center;
+  }
 }
 </style>
