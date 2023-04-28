@@ -17,7 +17,8 @@
           <div class="contact-form">
             <form @submit.prevent="sendForm()" novalidate>
               <div class="confirmation-modal" v-if="confirmation">
-                <h3>Your message has been send!</h3>
+                <h3>Your message has been sent!</h3>
+                <p>You will be contacted as soon as possible</p>
               </div>
               <!-- Name input -->
               <div class="form-group">
@@ -149,6 +150,9 @@ export default {
         this.resetForm();
         this.confirmation = true;
       } else {
+        if (!this.checkEmail()) {
+          this.errors.email = 'Valid email required';
+        }
         myForm.forEach((input, i) => {
           if (!input) {
             this.confirmation = false;
@@ -188,9 +192,9 @@ export default {
         (this.message = '');
     },
     checkEmail() {
-      const rgx =
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-      return rgx.test(this.email);
+      return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
+        this.email
+      );
     },
   },
 };
@@ -259,6 +263,7 @@ form {
   position: relative;
   isolation: isolate;
 }
+
 .confirmation-modal {
   background: var(--clr-midnight-green);
   position: absolute;
@@ -266,9 +271,15 @@ form {
   z-index: 1;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   transition: 0.3s;
   animation: fade 0.5s forwards;
+}
+
+.confirmation-modal p {
+  color: var(--clr-white);
+  margin-top: 2rem;
 }
 
 @keyframes fade {
@@ -348,23 +359,61 @@ input::placeholder {
   border-bottom: 1px solid var(--clr-red);
 }
 
+@media screen and (max-width: 1659px) {
+  .contact {
+    justify-content: center;
+    gap: 5rem;
+  }
+}
+
 @media screen and (max-width: 1440px) {
   .contact {
     max-width: 90%;
   }
 }
 
+@media screen and (max-width: 1264px) {
+  .contact-wrapper {
+    background-position-x: -8.95rem, calc(100% + 6.2rem);
+    background-position-y: 0, bottom;
+  }
+  .contact {
+    gap: 2rem;
+  }
+}
+
 @media screen and (max-width: 1024px) {
+  .contact-wrapper {
+    background-position-x: -6.2rem, calc(100% + 6.2rem);
+  }
+  form {
+    width: 450px;
+    padding-bottom: 2rem;
+  }
   .contact {
     flex-direction: column;
     padding: 0;
-    gap: 3rem;
+    gap: 0rem;
     align-items: center;
   }
 
   .contact-infos h1,
   .contact-infos h2 {
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .contact-wrapper {
+    background-color: var(--clr-midnight-green);
+    background-image: url('../assets/bg-pattern-contact-2.svg');
+    background-repeat: no-repeat;
+    background-position-x: calc(100% + 6.2rem);
+    background-position-y: calc(100% + 6.2rem);
+  }
+  form {
+    width: 300px;
+    padding-bottom: 4rem;
   }
 }
 </style>

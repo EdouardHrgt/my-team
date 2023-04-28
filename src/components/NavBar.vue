@@ -1,7 +1,14 @@
 <template>
   <div class="nav-bar">
-    <div class="filter" :class="{ 'nav-active': isOpen }" @click="isOpen = !isOpen"></div>
-    <header>
+    <div
+      class="filter"
+      :class="{ 'nav-active': isOpen }"
+      @click="isOpen = !isOpen"
+      @wheel.prevent
+      @touchmove.prevent
+      @scroll.prevent
+    ></div>
+    <header @wheel.prevent @touchmove.prevent @scroll.prevent>
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="160" height="40">
           <path
